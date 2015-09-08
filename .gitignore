@@ -24,3 +24,6 @@ node_modules
 bower_components
 assets/css/conway.css
 assets/css/conway.css.map
+.DS_Store
+._.TemporaryItems
+._layout.psd
