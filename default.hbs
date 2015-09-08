@@ -20,28 +20,33 @@
     {{! Ghost outputs important style and meta data with this tag }}
     {{ghost_head}}
 </head>
-<body class="{{body_class}} nav-closed">
+<body class="{{body_class}}">
 
   <div id="conway">
           <canvas></canvas>
   </div>
 
-  <header>
+  <header class="page">
       <div class="container">
-          <h1 class="row">
-              <a class="col-md-4.col-md-offset-8" href="/">
-                  {{@blog.title}}
-              </a>
-          </h1>
+        <div class="row">
+          <div class="col-md-8">
+            <h1>
+                <a class="col-md-4.col-md-offset-8" href="/">
+                    {{@blog.title}}
+                </a>
+            </h1>
+          </div>
+          <div class="col-md-4">1</div>
+        </div>
       </div>
   </header>
 
   <div class="wrap">
       <div class="container">
           <div class="row">
-              <div class="col-md-8" style="background:red;">
+              <main class="col-md-8 content">
                   {{{body}}}
-              </div>
+              </main>
               <aside class="col-md-4">
                    foo
                </aside>
