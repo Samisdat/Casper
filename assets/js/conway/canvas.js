@@ -8,7 +8,7 @@
 
 	Samisdat.Conway.Canvas = ( function() {
 			var animation_paused = false;
-		
+
 			var $canvas;
 
 			var canvas = {
@@ -31,51 +31,60 @@
 				rows : undefined,
 				collums : undefined
 			};
-			
-			var sidebar = {
+
+      var main = {
 				offsetLeft:undefined,
 				width:undefined
 			};
 
+      var aside = {
+				offsetLeft:undefined,
+				width:undefined
+			};
+
+
 			var render = function() {
-				
+
 				var population_pos = {
 					top: Math.floor(visibile.rows / 2),
 					left: Math.floor(visibile.collums / 2)
 				};
-				
+
 				canvas.ctx.fillStyle = '#c5cf9c';
 				canvas.ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-				// darken sidebar a little
-				canvas.ctx.fillStyle = '#d1d9b0';
-				canvas.ctx.fillRect(sidebar.offsetLeft, 0, sidebar.width, canvas.height);
+				// lighten main column a little
+        canvas.ctx.fillStyle = '#d2daab';
+				canvas.ctx.fillRect(main.offsetLeft, 0, main.width, canvas.height);
+
+        // lighten aside column a little more
+        canvas.ctx.fillStyle = '#e0e5c4';
+				canvas.ctx.fillRect(aside.offsetLeft, 0, aside.width, canvas.height);
 
 				for (var row = 0; row < visibile.rows; row += 1) {
 					for (var column = 0; column < visibile.collums; column += 1) {
 
 						var color = '#ffffff';
-																		
-						var _cell = Samisdat.Conway.Population.get_cell( 
+
+						var _cell = Samisdat.Conway.Population.get_cell(
 							( row - population_pos.top ),
 							( column - population_pos.left )
 						);
-						
 						if(_cell === undefined || _cell.live() === false){
+              continue;
 							if( (column - population_pos.left) === 0 ){
 								color = '#ff0000';
-								
+
 							}
 							else{
-								continue;	
+								continue;
 							}
-							
+
 						}
-						
 						if(_cell !== undefined && _cell.live() === true){
 							color = '#8c9568';
 						}
-						
+
 						canvas.ctx.fillStyle = color;
 						canvas.ctx.fillRect((offset.x + (column) * (cell.width + cell.spacing) ), (offset.y + (row) * (cell.width + cell.spacing) ), cell.width, cell.width);
 					}
@@ -88,21 +97,21 @@
 				};
 
 				hash = JSON.stringify(hash);
-				
+
 				if(hash === last_hash){
 					console.log('nothing changed');
 					return false;
 				}
-				
+
 				hash = last_hash;
-				return true;				
+				return true;
 			};
 			var loop = function() {
 				var animate = something_to_render();
 				if(animate === true){
-					render();				
+					render();
 				}
-				
+
 				if(animation_paused === true){
 					return;
 				}
@@ -114,7 +123,7 @@
 				if(data.invisible === undefined){
 					return;
 				}
-				
+
 				if(data.invisible === true){
 					animation_paused = true;
 					return;
@@ -123,7 +132,7 @@
 					animation_paused = false;
 					loop();
 					return;
-				}				
+				}
 			});
 
 
@@ -177,14 +186,19 @@
 
 			};
 
-			var get_sidebar = function(){
-				sidebar.offsetLeft = $('header h1 a').offset().left;
-				sidebar.width = $('header h1 a').width() + parseInt($('header h1 a').css('padding-left'), 10) + parseInt($('header h1 a').css('padding-right'), 10);
+			var get_columns = function(){
+
+        main.offsetLeft = $('header.page .col-md-8').offset().left;
+        main.width = $('header.page .col-md-8').width() + parseInt($('header.page .col-md-8').css('padding-left'), 10) + parseInt($('header.page .col-md-8').css('padding-right'), 10);
+
+        aside.offsetLeft = $('header.page .col-md-4').offset().left;
+        aside.width = $('header.page .col-md-4').width() + parseInt($('header.page .col-md-4').css('padding-left'), 10) + parseInt($('header.page .col-md-4').css('padding-right'), 10);
+
 			};
 
 			var ready = function() {
-				get_sidebar();
-				$(window).resize(get_sidebar);
+				get_columns();
+				$(window).resize(get_columns);
 
 				setup_canvas();
 				prepare_observation();
@@ -196,6 +210,6 @@
 		}());
 
 
-    //\productive    
-    
+    //\productive
+
 })(jQuery);
