@@ -1,9 +1,14 @@
-<nav class="pagination" role="navigation">
-    {{#if prev}}
-        <a class="newer-posts" href="{{page_url prev}}">&larr; Newer Posts</a>
-    {{/if}}
-    <span class="page-number">Page {{page}} of {{pages}}</span>
-    {{#if next}}
-        <a class="older-posts" href="{{page_url next}}">Older Posts &rarr;</a>
-    {{/if}}
+<nav>
+  <ul class="pager">
+    <li class="previous{{#unless prev}} disabled{{/unless}}">
+      <a {{#if prev}}href="{{page_url prev}}"{{/if}}>
+        <i class="fa fa-long-arrow-left"></i> Neuere Posts
+      </a>
+    </li>
+    <li class="next{{#unless next}} disabled{{/unless}}">
+      <a {{#if next}}href="{{page_url next}}"{{/if}}>
+        Ältere Posts <i class="fa fa-long-arrow-right"></i>
+      </a>
+    </li>
+  </ul>
 </nav>
