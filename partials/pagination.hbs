@@ -1,14 +1,15 @@
 <nav>
   <ul class="pager">
+
     <li class="previous{{#unless prev}} disabled{{/unless}}">
-      <a {{#if prev}}href="{{page_url prev}}"{{/if}}>
+      {{#if prev}}<a href="{{page_url prev}}">{{else}}<span>{{/if}}
         <i class="fa fa-long-arrow-left"></i> Neuere Posts
-      </a>
+      {{#if prev}}</a>{{else}}</span>{{/if}}
     </li>
     <li class="next{{#unless next}} disabled{{/unless}}">
-      <a {{#if next}}href="{{page_url next}}"{{/if}}>
+      {{#if next}}<a href="{{page_url next}}">{{else}}<span>{{/if}}
         Ältere Posts <i class="fa fa-long-arrow-right"></i>
-      </a>
+      {{#if next}}</a>{{else}}</span>{{/if}}
     </li>
   </ul>
 </nav>
